@@ -33,3 +33,5 @@ create table matchmaker.match (
     player_id int4 references matchmaker.player (id),
     primary key (game_id, player_id)
 );
+
+commit;
