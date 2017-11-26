@@ -17,6 +17,10 @@ jar {
     manifest { attributes 'Main-Class': 'ru.atom.matchmaker.MatchmakerServer' }
 }
 
+configurations {
+    compile.exclude group:'ch.qos.logback'
+}
+
 sourceSets {
     main {
         java {
