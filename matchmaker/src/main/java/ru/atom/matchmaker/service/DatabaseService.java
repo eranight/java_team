@@ -80,7 +80,7 @@ public class DatabaseService {
 
     @Transactional
     public void addPlayers(long gameId, Set<String> logins) {
-        Set<Player> players =  new HashSet<>(playerDao.getAllByLogin(logins));
+        Set<Player> players =  new HashSet<>(playerDao.findByLoginIn(logins));
         Game game = gameDao.findOne(gameId);
         game.setStatus(gameStatusDao.findOne(2)).setPlayers(players);
         gameDao.save(game);

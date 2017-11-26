@@ -13,6 +13,6 @@ import java.util.Set;
 public interface PlayerDao extends CrudRepository<Player, Integer> {
     public Player getByLogin(String login);
     public Player getByLoginAndPassword(String login, String password);
-    public List<Player> getAllByLogin(Iterable<String> logins);
+    public List<Player> findByLoginIn(Iterable<String> logins);
 }
 
