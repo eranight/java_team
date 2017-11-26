@@ -3,6 +3,7 @@ package ru.atom.matchmaker.model;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Alexandr on 25.11.2017.
@@ -12,37 +13,45 @@ import java.util.List;
 public class Game {
     @Id
     @Column(name = "id")
-    private Long id;
+    private long id;
 
-    @Column(name = "start_time", nullable = false, updatable = false)
-    private Date startTime;
+    @ManyToOne
+    @JoinColumn(name = "status", nullable = false)
+    private GameStatus status;
 
-    @OneToMany(mappedBy = "gameId", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    List<Player> players;
 
-    public Long getId() {
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "match",
+            schema = "matchmaker",
+            joinColumns = { @JoinColumn(name = "game_id") },
+            inverseJoinColumns = { @JoinColumn(name = "player_id") }
+    )
+    private Set<Player> players;
+
+    public long getId() {
         return id;
     }
 
-    public Game setId(Long id) {
+    public Game setId(long id) {
         this.id = id;
         return this;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public GameStatus getStatus() {
+        return status;
     }
 
-    public Game setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public Game setStatus(GameStatus status) {
+        this.status = status;
         return this;
     }
 
-    public List<Player> getPlayers() {
+    public Set<Player> getPlayers() {
         return players;
     }
 
-    public Game setPlayers(List<Player> players) {
+    public Game setPlayers(Set<Player> players) {
         this.players = players;
         return this;
     }

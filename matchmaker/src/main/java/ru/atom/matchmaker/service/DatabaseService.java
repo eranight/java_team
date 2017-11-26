@@ -29,12 +29,8 @@ public class DatabaseService {
     private PlayerDao playerDao;
 
     @Transactional
-    public void insertGame(@NotNull long gameId, @NotNull Date startTime, @NotEmpty List<String> logins) {
-        Game game = new Game();
-        gameDao.save(game).setId(gameId).setStartTime(startTime);
-        playerDao.save(
-                logins.stream().map(log -> new Player().setGame(game).setLogin(log))
-                        .collect(Collectors.toList()));
-        logger.info("insert game with id=" + gameId);
+    public void insertGame() {
+
+        logger.info("insert game with id=");
     }
 }
