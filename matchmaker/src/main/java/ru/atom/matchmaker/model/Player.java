@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name = "player", schema = "matchmaker")
 public class Player {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "login", unique = true, nullable = false, updatable = false, length = 30)
