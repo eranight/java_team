@@ -1,10 +1,8 @@
 package ru.atom.matchmaker.dao;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import ru.atom.matchmaker.model.Player;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,6 +11,6 @@ import java.util.Set;
 public interface PlayerDao extends CrudRepository<Player, Integer> {
     public Player getByLogin(String login);
     public Player getByLoginAndPassword(String login, String password);
-    public List<Player> findByLoginIn(Iterable<String> logins);
+    public Set<Player> findByLoginIn(Iterable<String> logins);
 }
 

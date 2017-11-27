@@ -40,9 +40,12 @@ public class MatchmakerComponent {
             produces = MediaType.TEXT_PLAIN_VALUE
     )
     public ResponseEntity<String> signup(@RequestParam("login") String login, @RequestParam("password") String password) {
-        logger.info("signup request has been received" + maxPlayersCount);
-        //check login
-        //check password
+        logger.info("signup request has been received");
+        if (!checkValidLogin(login)) {
+            return ResponseEntity.badRequest().body("incorrect login");
+        } else if (!checkValidPassword(password)) {
+            return ResponseEntity.badRequest().body("incorrect password");
+        }
         if (!databaseService.checkSignupLogin(login)) {
             databaseService.signUp(login, password);
             return ResponseEntity.ok("ok");
@@ -70,12 +73,14 @@ public class MatchmakerComponent {
     private boolean checkValidLogin(String login) {
         return (login != null) && !"".equals(login.trim());
     }
+    private boolean checkValidPassword(String password) {
+        return (password != null) && !"".equals(password.trim());
+    }
 
     private long processJoinRequest(String login) {
         long gameId;
         if (currentBuilder == null) {
             gameId = gameService.create(maxPlayersCount);
-            databaseService.createGame(gameId);
             currentBuilder = new MatchBuilder(maxPlayersCount, gameId);
             logger.info("game has been created with id=" + gameId);
         } else {
@@ -84,7 +89,7 @@ public class MatchmakerComponent {
         currentBuilder.putLogin(login);
         gameService.connect(login, currentBuilder.getGameId());
         if (currentBuilder.isReady()) {
-            databaseService.addPlayers(currentBuilder.getGameId(), currentBuilder.getLogins());
+            databaseService.insertNewGame(currentBuilder.getGameId(), currentBuilder.getLogins());
             gameService.start(currentBuilder.getGameId());
             currentBuilder = null;
         }

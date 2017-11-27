@@ -72,18 +72,11 @@ public class DatabaseService {
     }
 
     @Transactional
-    public void createGame(long gameId) {
+    public void insertNewGame(long gameId, Set<String> logins) {
+        Set<Player> players = playerDao.findByLoginIn(logins);
         Game game = new Game();
-        game.setId(gameId).setStatus(gameStatusDao.findOne(1));
+        game.setId(gameId).setPlayers(players).setStatus(gameStatusDao.findOne(2));
         gameDao.save(game);
-    }
-
-    @Transactional
-    public void addPlayers(long gameId, Set<String> logins) {
-        Set<Player> players =  new HashSet<>(playerDao.findByLoginIn(logins));
-        Game game = gameDao.findOne(gameId);
-        game.setStatus(gameStatusDao.findOne(2)).setPlayers(players);
-        gameDao.save(game);
-        logger.info("insert game with id=");
+        logger.info("insert new game with id=" + gameId);
     }
 }
