@@ -8,7 +8,7 @@ import java.util.Set;
 public class GameStatus {
 
     @Id
-    @GeneratedValue
+    @Column(name = "id")
     private int id;
 
     @Column(name = "name", unique = true, nullable = false, length = 20)
