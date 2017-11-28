@@ -19,13 +19,17 @@ public class MatchmakerFeedback {
 
     @Value("${url}")
     private String url;
+    @Value("${gameover}")
+    private String gameOver;
 
-    public void gameOver(String winnersLogin) {
+    public void gameOver(long gameId, String winnersLogin) {
+        String content = "gameId=" + gameId + "&winner=" + winnersLogin;
         Request request = new Request.Builder()
-                .post(RequestBody.create(MediaType.parse("text/plain"), "winner=" + winnersLogin))
-                .url(url)
+                .post(RequestBody.create(MediaType.parse("text/plain"), content))
+                .url(url + gameOver)
                 .build();
         try {
+            logger.info("try to send game over request with content=" + content);
             client.newCall(request).execute();
         } catch (IOException e) {
             logger.error(e.getMessage());
