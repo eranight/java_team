@@ -4,12 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.atom.matchmaker.model.Player;
 import ru.atom.matchmaker.service.DatabaseService;
 import ru.atom.matchmaker.service.GameService;
@@ -39,6 +41,7 @@ public class MatchmakerComponent {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE
     )
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> signup(@RequestParam("login") String login, @RequestParam("password") String password) {
         logger.info("signup request has been received");
         if (!checkValidLogin(login)) {
@@ -59,6 +62,7 @@ public class MatchmakerComponent {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE
     )
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> join(@RequestParam("login") String login, @RequestParam("password") String password) {
         logger.info("join request has been received");
         Player player = databaseService.login(login, password);
