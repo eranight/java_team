@@ -2,6 +2,18 @@
     width: 545px;
 }
 
+.leaderboard {
+	float:left;
+}
+
+.leaderboard .board {
+	overflow: scroll;
+	width:200px;
+	height:375px;
+	padding:5px;
+	border: solid 1px black;
+}
+
 #game {
     margin: auto;
     text-align: center;
@@ -54,6 +66,20 @@ h1 strong {
  * {
      font-family: Areal;
  }
+ .b-container {
+	width: 545px;
+ }
+ .greenbut {
+	width:100px;
+	background-color:#4CAF50;
+	color:#FFFFFF;
+ }
+ .redbut {
+	width:100px;
+	background-color:#F44336;
+	color:#FFFFFF;
+ }
+ 
  input[type=text], input[type=password] {
      width: 100%;
      padding: 12px 20px;
@@ -74,11 +100,9 @@ h1 strong {
      width: 30%;
  }
  .submitbut {
-     background-color: #4CAF50;
      float:right;
  }
  .cancelbut {
-     background-color: #F44336;
      float:left;
  }
  /* The Modal (background) */
@@ -96,20 +120,20 @@ h1 strong {
      padding-top: 60px;
  }
  .b-popin-content {
-     margin:0% auto 50% auto;
+     margin:auto;
      width:20%;
-     height: 280px;
+     height: 250px;
      padding:10px;
-     background-color: #c5c5c5;
+     background-color: #FFFFFF;
      border-radius:5px;
      box-shadow: 0px 0px 10px #000;
  }
  .b-popup-content {
-     margin:0% auto 50% auto;
+     margin:auto;
      width:20%;
-     height: 350px;
+     height: 310px;
      padding:10px;
-     background-color: #c5c5c5;
+     background-color: #FFFFFF;
      border-radius:5px;
      box-shadow: 0px 0px 10px #000;
  }

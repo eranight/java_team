@@ -25,5 +25,7 @@ function Compare() {
     var pass2 = document.getElementById("popregpass2").value;
     if (pass1 != pass2) {
         alert("ERROR! Passwords don't match!");
+		return false;
     }
+	return true;
 }
