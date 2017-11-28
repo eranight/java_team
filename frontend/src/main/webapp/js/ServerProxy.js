@@ -1,8 +1,9 @@
 ServerProxy = Class.extend({
     gameServerUrl: "52.91.84.175:13000",
     matchMakerUrl: "localhost:8080/matchmaker/join",
-    gameId: "1234",
-
+	gameId: "1234",
+	currentState: "offline",
+	
     socket: null,
 
     handler: {},
@@ -29,17 +30,39 @@ ServerProxy = Class.extend({
         });
     },
 
+	registryFromMatchMaker: function () {
+		var that = this;
+        var login = $("#popinlog").val();
+		var password = $("#popinpass").val();
+		$.ajax({
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                "login": login,
+				"password": password
+            },
+            dataType: 'text',
+            success: function(data){
+                console.log("Matchmaker registry");
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(jqXHR.responseText);
+                console.log(jqXHR.responseText);
+            },
+            processData: false,
+            type: 'POST',
+            url: that.matchMakerUrl
+        });
+	},
+	
     getSessionIdFromMatchMaker: function () {
         var that = this;
-        var login = $("#loginInput").val();
-        if(!login){
-            alert("Please input login");
-            console.log("Empty login, retry login");
-        }
+        var login = $("#popinlog").val();
+		var password = $("#popinpass").val();
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: {
-                "name": login
+                "login": login,
+				"password": password
             },
             dataType: 'text',
             success: function(data){
@@ -47,17 +70,16 @@ ServerProxy = Class.extend({
                 console.log("Matchmaker returned gameId=" + data);
                 that.connectToGameServer(that.gameId, login);
             },
-            error: function(){
-                alert("Matchmaker request failed, use default gameId=" + that.gameId);
-                console.log("Matchmaker request failed, use default gameId=" + that.gameId);
-                that.connectToGameServer(that.gameId, login);
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(jqXHR.responseText);
+                console.log(jqXHR.responseText);
             },
             processData: false,
             type: 'POST',
             url: that.matchMakerUrl
         });
     },
-
+	
     connectToGameServer: function (gameId, login) {
         var self = this;
         this.socket = new WebSocket("ws://" + this.gameServerUrl + "/game/connect?gameId=" + gameId + "&name=" + login);
@@ -89,3 +111,5 @@ ServerProxy = Class.extend({
     }
 
 });
+
+serverProxy = new ServerProxy();

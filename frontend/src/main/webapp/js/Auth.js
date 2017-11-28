@@ -20,12 +20,29 @@ function PopUpShow() {
 function PopUpHide() {
     $("#popup").hide();
 }
-function Compare() {
-    var pass1 = document.getElementById("popregpass1").value;
-    var pass2 = document.getElementById("popregpass2").value;
-    if (pass1 != pass2) {
-        alert("ERROR! Passwords don't match!");
+function Login() {
+	if ($("#popinlog").val() && $("#popinpass").val()) {
+		serverProxy.getSessionIdFromMatchMaker();
+		PopInHide();
+		return true;
+	} else {
+		alert("something is empty");
 		return false;
-    }
-	return true;
+	}
+}
+function Registry() {
+	var pass1 = $("#popregpass1").val();
+	var pass2 = $("#popregpass2").val();
+	if ($("#popreglog").val() && pass1 && pass2) {
+		if (pass1 != pass2) {
+			alert("ERROR! Passwords don't match!");
+			return false;
+		} else {
+			PopUpHide();
+			return true;
+		}
+	} else {
+		alert("something is empty");
+		return false;
+	}
 }
