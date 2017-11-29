@@ -1,7 +1,8 @@
 ServerProxy = Class.extend({
-    gameServerUrl: "localhost:8090",
+    gameServerUrl: "localhost:8091",
     matchMakerUrl: "http://localhost:8080/matchmaker/join",
     matchMakerSignUpUrl: "http://localhost:8080/matchmaker/signup",
+    matchMakerSignOutUrl: "http://localhost:8080/matchmaker/signout",
 	gameId: "1234",
 	currentState: "offline",
 	
@@ -110,6 +111,25 @@ ServerProxy = Class.extend({
         this.socket.onerror = function (error) {
             console.log("Error " + error.message);
         };
+    },
+
+    logout: function (login, password) {
+        var that = this;
+        $.ajax({
+            contentType: 'application/x-www-form-urlencoded',
+            data: "login=" + login + "&password=" + password,
+            dataType: 'text',
+            success: function(data) {
+                console.log("Matchmaker logout");
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            },
+            processData: false,
+            type: 'POST',
+            url: that.matchMakerSignOutUrl,
+            async: false
+        });
     }
 
 });

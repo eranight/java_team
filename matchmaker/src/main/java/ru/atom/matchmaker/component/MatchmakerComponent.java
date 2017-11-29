@@ -9,10 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.atom.matchmaker.model.Player;
 import ru.atom.matchmaker.service.DatabaseService;
 import ru.atom.matchmaker.service.GameService;
@@ -67,6 +64,20 @@ public class MatchmakerComponent {
             return ResponseEntity.ok().body(String.valueOf(gameId));
         } else {
             return ResponseEntity.badRequest().body("bad login or password");
+        }
+    }
+
+    @RequestMapping(
+            path = "signout",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
+    )
+    @ResponseStatus(value = HttpStatus.OK)
+    public void signout(@RequestParam("login") String login, @RequestParam("password") String password) {
+        logger.info("signout request has been received");
+        Player player = databaseService.login(login, password);
+        if (player != null) {
+            databaseService.logout(player);
         }
     }
 

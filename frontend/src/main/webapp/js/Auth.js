@@ -19,9 +19,9 @@ Authentication = Class.extend({
 		var result = serverProxy.getSessionIdFromMatchMaker(this.login, this.password);
 		if (result[0]) {
 			PopInHide();
-			$("#bt_login").disabled = true;
-			$("#bt_registy").disabled = true;
-			$("#bt_logout").disabled = false;
+			$("#bt_login").attr('disabled', 'disabled');
+            $("#bt_registy").attr('disabled', 'disabled');
+            $("#bt_logout").removeAttr('disabled');
 			this.loggined = true;
 			return true;
 		} else {
@@ -53,6 +53,9 @@ Authentication = Class.extend({
 			if (result[0]) {
 				serverProxy.getSessionIdFromMatchMaker(this.login, this.password);
 				PopUpHide();
+				$("#bt_login").attr('disabled', 'disabled');
+                $("#bt_registy").attr('disabled', 'disabled');
+                $("#bt_logout").removeAttr('disabled');
 				this.loggined = true;
 				return true;
 			} else {
@@ -66,6 +69,7 @@ Authentication = Class.extend({
 	}, 
 	
 	Logout: function() {
+	    serverProxy.logout(this.login, this.password);
 		this.loggined = false;
 		$("#bt_login").removeAttr('disabled');
 		$("#bt_registy").removeAttr('disabled');
