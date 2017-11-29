@@ -49,7 +49,7 @@ Authentication = Class.extend({
 		if (password1 == password2) {
 			this.login = inner_login;
 			this.password = password1;
-			var result = serverProxy.registryFromMatchMaker(this.login, this.password1);
+			var result = serverProxy.registryFromMatchMaker(this.login, this.password);
 			if (result[0]) {
 				serverProxy.getSessionIdFromMatchMaker(this.login, this.password);
 				PopUpHide();
