@@ -16,11 +16,6 @@ Authentication = Class.extend({
 		}
 		this.login = inner_login;
 		this.password = inner_password;
-		PopInHide();
-			$("#bt_login").attr('disabled', 'disabled');
-			$("#bt_registy").attr('disabled', 'disabled');
-			$("#bt_logout").removeAttr('disabled');
-			return true;
 		var result = serverProxy.getSessionIdFromMatchMaker(this.login, this.password);
 		if (result[0]) {
 			PopInHide();
