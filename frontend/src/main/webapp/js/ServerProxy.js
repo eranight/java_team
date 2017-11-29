@@ -1,6 +1,7 @@
 ServerProxy = Class.extend({
-    gameServerUrl: "52.91.84.175:13000",
-    matchMakerUrl: "localhost:8080/matchmaker/join",
+    gameServerUrl: "localhost:8090",
+    matchMakerUrl: "http://localhost:8080/matchmaker/join",
+    matchMakerSignUpUrl: "http://localhost:8080/matchmaker/signup",
 	gameId: "1234",
 	currentState: "offline",
 	
@@ -32,14 +33,11 @@ ServerProxy = Class.extend({
 
 	registryFromMatchMaker: function () {
 		var that = this;
-        var login = $("#popinlog").val();
-		var password = $("#popinpass").val();
+        var login = $("#popreglog").val();
+		var password = $("#popregpass1").val();
 		$.ajax({
             contentType: 'application/x-www-form-urlencoded',
-            data: {
-                "login": login,
-				"password": password
-            },
+            data: "login=" + login + "&password=" + password,
             dataType: 'text',
             success: function(data){
                 console.log("Matchmaker registry");
@@ -50,7 +48,7 @@ ServerProxy = Class.extend({
             },
             processData: false,
             type: 'POST',
-            url: that.matchMakerUrl
+            url: that.matchMakerSignUpUrl
         });
 	},
 	
@@ -60,10 +58,7 @@ ServerProxy = Class.extend({
 		var password = $("#popinpass").val();
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
-            data: {
-                "login": login,
-				"password": password
-            },
+            data: "login=" + login + "&password=" + password,
             dataType: 'text',
             success: function(data){
                 that.gameId=data;
@@ -73,6 +68,7 @@ ServerProxy = Class.extend({
             error: function(jqXHR, textStatus, errorThrown){
                 alert(jqXHR.responseText);
                 console.log(jqXHR.responseText);
+                console.log(errorThrown);
             },
             processData: false,
             type: 'POST',

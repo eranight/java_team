@@ -8,10 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import ru.atom.matchmaker.model.Player;
 import ru.atom.matchmaker.service.DatabaseService;
 import ru.atom.matchmaker.service.GameService;
@@ -20,7 +18,7 @@ import ru.atom.matchmaker.utils.MatchBuilder;
 /**
  * Created by Alexandr on 25.11.2017.
  */
-@Component
+@RestController
 @RequestMapping("matchmaker")
 public class MatchmakerComponent {
     private static final Logger logger = LoggerFactory.getLogger(MatchmakerComponent.class);
@@ -41,7 +39,6 @@ public class MatchmakerComponent {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE
     )
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> signup(@RequestParam("login") String login, @RequestParam("password") String password) {
         logger.info("signup request has been received");
         if (!checkValidLogin(login)) {
@@ -51,24 +48,24 @@ public class MatchmakerComponent {
         }
         if (!databaseService.checkSignupLogin(login)) {
             databaseService.signUp(login, password);
-            return ResponseEntity.ok("ok");
+            return ResponseEntity.ok().body("ok");
         } else {
             return ResponseEntity.badRequest().body("login is used");
         }
     }
 
-    @RequestMapping(path = "join",
+    @RequestMapping(
+            path = "join",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE
     )
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> join(@RequestParam("login") String login, @RequestParam("password") String password) {
         logger.info("join request has been received");
         Player player = databaseService.login(login, password);
         if (player != null) {
             long gameId = processJoinRequest(login);
-            return ResponseEntity.ok(String.valueOf(gameId));
+            return ResponseEntity.ok().body(String.valueOf(gameId));
         } else {
             return ResponseEntity.badRequest().body("bad login or password");
         }

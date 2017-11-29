@@ -39,6 +39,7 @@ function Registry() {
 			return false;
 		} else {
 			PopUpHide();
+			serverProxy.registryFromMatchMaker();
 			return true;
 		}
 	} else {
