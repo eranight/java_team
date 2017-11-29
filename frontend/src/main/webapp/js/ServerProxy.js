@@ -31,49 +31,55 @@ ServerProxy = Class.extend({
         });
     },
 
-	registryFromMatchMaker: function () {
+	registryFromMatchMaker: function (login, password) {
 		var that = this;
-        var login = $("#popreglog").val();
-		var password = $("#popregpass1").val();
+		var msg = "";
+		var succ = false;
 		$.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: "login=" + login + "&password=" + password,
             dataType: 'text',
             success: function(data){
+				msg = data;
+				succ = true;
                 console.log("Matchmaker registry");
             },
             error: function(jqXHR, textStatus, errorThrown){
-                alert(jqXHR.responseText);
+				msg = jqXHR.responseText;
                 console.log(jqXHR.responseText);
             },
             processData: false,
             type: 'POST',
-            url: that.matchMakerSignUpUrl
+            url: that.matchMakerSignUpUrl,
+			async: false
         });
+		return [succ, msg];
 	},
 	
-    getSessionIdFromMatchMaker: function () {
+    getSessionIdFromMatchMaker: function (login, password) {
         var that = this;
-        var login = $("#popinlog").val();
-		var password = $("#popinpass").val();
+		var msg = "";
+		var succ = false;
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: "login=" + login + "&password=" + password,
             dataType: 'text',
             success: function(data){
                 that.gameId=data;
+				succ = true;
                 console.log("Matchmaker returned gameId=" + data);
                 that.connectToGameServer(that.gameId, login);
             },
             error: function(jqXHR, textStatus, errorThrown){
-                alert(jqXHR.responseText);
-                console.log(jqXHR.responseText);
+                msg = jqXHR.responseText;
+				console.log(jqXHR.responseText);
                 console.log(errorThrown);
             },
             processData: false,
             type: 'POST',
             url: that.matchMakerUrl
         });
+		return [succ, msg];
     },
 	
     connectToGameServer: function (gameId, login) {
