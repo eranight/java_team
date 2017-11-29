@@ -11,8 +11,12 @@ import java.util.Set;
  */
 @Repository
 public interface PlayerDao extends CrudRepository<Player, Integer> {
+
     public Player getByLogin(String login);
+
     public Player getByLoginAndPassword(String login, String password);
+
     public Set<Player> findByLoginIn(Iterable<String> logins);
+
 }
 

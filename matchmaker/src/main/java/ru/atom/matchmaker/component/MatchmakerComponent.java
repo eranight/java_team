@@ -9,7 +9,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.atom.matchmaker.model.Player;
 import ru.atom.matchmaker.service.DatabaseService;
 import ru.atom.matchmaker.service.GameService;
@@ -39,13 +42,9 @@ public class MatchmakerComponent {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE
     )
-    public ResponseEntity<String> signup(@RequestParam("login") String login, @RequestParam("password") String password) {
+    public ResponseEntity<String> signup(@RequestParam("login") String login,
+                                         @RequestParam("password") String password) {
         logger.info("signup request has been received");
-        if (!checkValidLogin(login)) {
-            return ResponseEntity.badRequest().body("incorrect login");
-        } else if (!checkValidPassword(password)) {
-            return ResponseEntity.badRequest().body("incorrect password");
-        }
         if (!databaseService.checkSignupLogin(login)) {
             databaseService.signUp(login, password);
             return ResponseEntity.ok().body("ok");
@@ -69,13 +68,6 @@ public class MatchmakerComponent {
         } else {
             return ResponseEntity.badRequest().body("bad login or password");
         }
-    }
-
-    private boolean checkValidLogin(String login) {
-        return (login != null) && !"".equals(login.trim());
-    }
-    private boolean checkValidPassword(String password) {
-        return (password != null) && !"".equals(password.trim());
     }
 
     private long processJoinRequest(String login) {

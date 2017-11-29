@@ -28,6 +28,7 @@ public class MatchBuilder {
     public boolean isReady() {
         return logins.size() == maxCount;
     }
+
     public Set<String> getLogins() {
         return logins;
     }

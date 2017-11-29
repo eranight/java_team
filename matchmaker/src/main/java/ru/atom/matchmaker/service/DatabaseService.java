@@ -1,6 +1,5 @@
 package ru.atom.matchmaker.service;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +10,11 @@ import ru.atom.matchmaker.dao.GameStatusDao;
 import ru.atom.matchmaker.dao.PlayerDao;
 import ru.atom.matchmaker.dao.PlayerStatusDao;
 import ru.atom.matchmaker.model.Game;
-import ru.atom.matchmaker.model.GameStatus;
 import ru.atom.matchmaker.model.Player;
-import ru.atom.matchmaker.model.PlayerStatus;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 /**
  * Created by Alexandr on 25.11.2017.

@@ -1,6 +1,10 @@
 package ru.atom.matchmaker.service;
 
-import okhttp3.*;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +30,8 @@ public class GameService {
     public long create(int playerCount) {
         logger.info("create new game for " + playerCount + "th players");
         Request request = new Request.Builder()
-                .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), "playerCount=" + playerCount))
+                .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"),
+                        "playerCount=" + playerCount))
                 .url(url + create)
                 .build();
         logger.info(url + create);
