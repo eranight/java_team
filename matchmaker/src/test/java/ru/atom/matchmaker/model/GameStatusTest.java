@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class GameStatusTest {
     GameStatus gameStatus;
     Set<Game> games;
+
     @Before
     public void init() {
         gameStatus = new GameStatus();

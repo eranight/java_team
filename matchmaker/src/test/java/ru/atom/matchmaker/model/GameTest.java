@@ -12,6 +12,7 @@ public class GameTest {
     Game game;
     GameStatus gameStatus;
     Set<Player> players;
+
     @Before
     public void init() {
         game = new Game();

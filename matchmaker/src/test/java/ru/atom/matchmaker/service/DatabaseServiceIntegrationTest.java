@@ -1,6 +1,7 @@
 package ru.atom.matchmaker.service;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DatabaseServiceIntegrationTest {
@@ -36,15 +38,15 @@ public class DatabaseServiceIntegrationTest {
 
     @Test
     public void login() throws Exception {
-        assertEquals(player.getLogin(), "user");
-        assertEquals(player.getPassword(), "1234");
-        assertEquals(player.getStatus(), 2);
+        assertEquals("user", player.getLogin());
+        assertEquals("1234", player.getPassword());
+        assertEquals(2, player.getStatus());
     }
 
     @Test
     public void logout() throws Exception {
-        assertEquals(player.getLogin(), "user");
-        assertEquals(player.getPassword(), "1234");
-        assertEquals(player.getStatus(), 1);
+        assertEquals("user", player.getLogin());
+        assertEquals("1234", player.getPassword());
+        assertEquals(1, player.getStatus());
     }
 }
