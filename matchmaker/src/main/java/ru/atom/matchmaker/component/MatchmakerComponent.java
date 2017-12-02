@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import ru.atom.matchmaker.model.Player;
 import ru.atom.matchmaker.service.DatabaseService;
 import ru.atom.matchmaker.service.GameService;
@@ -37,8 +39,7 @@ public class MatchmakerComponent {
             path = "signup",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.TEXT_PLAIN_VALUE
-    )
+            produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> signup(@RequestParam("login") String login,
                                          @RequestParam("password") String password) {
         logger.info("signup request has been received");
@@ -54,8 +55,7 @@ public class MatchmakerComponent {
             path = "join",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.TEXT_PLAIN_VALUE
-    )
+            produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> join(@RequestParam("login") String login, @RequestParam("password") String password) {
         logger.info("join request has been received");
         Player player = databaseService.login(login, password);
@@ -70,8 +70,7 @@ public class MatchmakerComponent {
     @RequestMapping(
             path = "signout",
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
-    )
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void signout(@RequestParam("login") String login, @RequestParam("password") String password) {
         logger.info("signout request has been received");

@@ -1,3 +1,5 @@
+begin;
+
 drop schema if exists matchmaker cascade;
 create schema matchmaker;
 
