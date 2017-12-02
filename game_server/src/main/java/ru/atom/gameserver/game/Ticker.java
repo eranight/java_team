@@ -1,6 +1,7 @@
 package ru.atom.gameserver.game;
 
 import org.slf4j.LoggerFactory;
+import ru.atom.gameserver.action.Tickable;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -8,12 +9,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
 public class Ticker {
-
-    private static interface Tickable {
-
-        void tick(long elapsed);
-
-    }
 
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(Ticker.class);
     private static final int FPS = 60;
