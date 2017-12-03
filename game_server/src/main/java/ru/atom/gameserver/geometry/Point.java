@@ -19,6 +19,14 @@ public class Point implements Collider {
         return y;
     }
 
+    public boolean moreOrEquals(Point o) {
+        return this.x >= o.getX() && this.y >= o.getY();
+    }
+
+    public boolean lessOrEquals(Point o) {
+        return this.x <= o.getX() && this.y <= o.getY();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,5 +51,9 @@ public class Point implements Collider {
             return this.equals(other);
         }
         throw new UnsupportedOperationException();
+    }
+
+    public Point move(Point direction) {
+        return new Point(x + direction.getX(), y + direction.getY());
     }
 }
