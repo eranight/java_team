@@ -1,16 +1,17 @@
 package ru.atom.gameserver.model;
 
 import ru.atom.gameserver.action.Positionable;
+import ru.atom.gameserver.geometry.Bar;
 import ru.atom.gameserver.geometry.Point;
 
 public class GameObjectAbstract implements Positionable {
-    protected Point position;
+    protected Bar position;
     protected final int id;
     protected static int nextId = 1;
     protected boolean isActive = true;
 
-    public GameObjectAbstract(int x, int y) {
-        position = new Point(x, y);
+    public GameObjectAbstract(Point p1, Point p2) {
+        position = new Bar(p1, p2);
         id = nextId++;
     }
 
@@ -20,7 +21,7 @@ public class GameObjectAbstract implements Positionable {
     }
 
     @Override
-    public Point getPosition() {
+    public Bar getPosition() {
         return position;
     }
 
