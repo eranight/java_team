@@ -1,13 +1,14 @@
 package ru.atom.gameserver.model;
 
 import ru.atom.gameserver.action.Movable;
+import ru.atom.gameserver.geometry.Bar;
 import ru.atom.gameserver.geometry.Point;
 
 public class Girl extends GameObjectAbstract implements Movable {
     private int speed = 10;
 
-    public Girl(int x, int y) {
-        super(x, y);
+    public Girl(Point p1, Point p2) {
+        super(p1, p2);
     }
 
     public int getSpeed() {
@@ -19,25 +20,25 @@ public class Girl extends GameObjectAbstract implements Movable {
     }
 
     @Override
-    public Point move(Direction direction, long time) {
-        int posX = position.getX();
-        int posY = position.getY();
+    public Bar move(Direction direction, long time) {
+        Point vectorOfMove;
         switch (direction) {
             case UP:
-                posY += speed * time;
+                vectorOfMove = new Point(0, speed * (int) time);
                 break;
             case DOWN:
-                posY -= speed * time;
+                vectorOfMove = new Point(0, -speed * (int) time);
                 break;
             case RIGHT:
-                posX += speed * time;
+                vectorOfMove = new Point(speed * (int) time, 0);
                 break;
             case LEFT:
-                posX -= speed * time;
+                vectorOfMove = new Point(-speed * (int) time, 0);
                 break;
             default:
+                vectorOfMove = new Point(0, 0);
         }
-        position = new Point(posX, posY);
+        position = position.move(vectorOfMove);
         return position;
     }
 
