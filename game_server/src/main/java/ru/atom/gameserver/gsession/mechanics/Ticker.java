@@ -1,7 +1,7 @@
-package ru.atom.gameserver.game;
+package ru.atom.gameserver.gsession.mechanics;
 
 import org.slf4j.LoggerFactory;
-import ru.atom.gameserver.action.Tickable;
+import ru.atom.gameserver.gsession.common.Tickable;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;

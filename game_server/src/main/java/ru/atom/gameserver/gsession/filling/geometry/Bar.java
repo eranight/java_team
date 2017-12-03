@@ -1,8 +1,6 @@
-package ru.atom.gameserver.geometry;
+package ru.atom.gameserver.gsession.filling.geometry;
 
-import ru.atom.gameserver.action.Collider;
-
-import java.security.PublicKey;
+import ru.atom.gameserver.gsession.filling.action.Collider;
 
 public class Bar implements Collider {
 

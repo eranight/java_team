@@ -1,6 +1,6 @@
-package ru.atom.gameserver.geometry;
+package ru.atom.gameserver.gsession.filling.geometry;
 
-import ru.atom.gameserver.action.Collider;
+import ru.atom.gameserver.gsession.filling.action.Collider;
 
 public class Point implements Collider {
     private final int x;

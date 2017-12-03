@@ -1,16 +1,16 @@
-package ru.atom.gameserver.model;
+package ru.atom.gameserver.gsession.filling.model;
 
-import ru.atom.gameserver.action.Positionable;
-import ru.atom.gameserver.geometry.Bar;
-import ru.atom.gameserver.geometry.Point;
+import ru.atom.gameserver.gsession.filling.action.Positionable;
+import ru.atom.gameserver.gsession.filling.geometry.Bar;
+import ru.atom.gameserver.gsession.filling.geometry.Point;
 
-public class GameObjectAbstract implements Positionable {
+public class AbstractGameObject implements Positionable {
     protected Bar position;
     protected final int id;
     protected static int nextId = 1;
     protected boolean isActive = true;
 
-    public GameObjectAbstract(Point p1, Point p2) {
+    public AbstractGameObject(Point p1, Point p2) {
         position = new Bar(p1, p2);
         id = nextId++;
     }

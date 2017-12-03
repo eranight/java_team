@@ -1,4 +1,4 @@
-package ru.atom.gameserver.action;
+package ru.atom.gameserver.gsession.common;
 
 public interface Tickable {
     void tick(long elapsed);
