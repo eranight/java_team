@@ -1,7 +1,7 @@
-package ru.atom.gameserver.game;
+package ru.atom.gameserver.gsession.mechanics;
 
 import org.slf4j.LoggerFactory;
-import ru.atom.gameserver.message.Message;
+import ru.atom.gameserver.gsession.mechanics.message.Message;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;

@@ -1,4 +1,4 @@
-package ru.atom.gameserver.game;
+package ru.atom.gameserver.gsession.mechanics;
 
 public class GameSession {
 

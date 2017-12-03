@@ -1,9 +1,9 @@
-package ru.atom.gameserver.model;
+package ru.atom.gameserver.gsession.filling.model;
 
-import ru.atom.gameserver.action.Tickable;
-import ru.atom.gameserver.geometry.Point;
+import ru.atom.gameserver.gsession.common.Tickable;
+import ru.atom.gameserver.gsession.filling.geometry.Point;
 
-public class Bomb extends GameObjectAbstract implements Tickable {
+public class Bomb extends AbstractGameObject implements Tickable {
     private int timer = 10;
 
     public Bomb(Point p1, Point p2) {

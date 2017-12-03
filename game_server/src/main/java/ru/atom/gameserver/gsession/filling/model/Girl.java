@@ -1,10 +1,10 @@
-package ru.atom.gameserver.model;
+package ru.atom.gameserver.gsession.filling.model;
 
-import ru.atom.gameserver.action.Movable;
-import ru.atom.gameserver.geometry.Bar;
-import ru.atom.gameserver.geometry.Point;
+import ru.atom.gameserver.gsession.filling.action.Movable;
+import ru.atom.gameserver.gsession.filling.geometry.Bar;
+import ru.atom.gameserver.gsession.filling.geometry.Point;
 
-public class Girl extends GameObjectAbstract implements Movable {
+public class Girl extends AbstractGameObject implements Movable {
     private int speed = 10;
 
     public Girl(Point p1, Point p2) {

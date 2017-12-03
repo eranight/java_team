@@ -1,4 +1,4 @@
-package ru.atom.gameserver.message;
+package ru.atom.gameserver.gsession.mechanics.message;
 
 public class Message {
 

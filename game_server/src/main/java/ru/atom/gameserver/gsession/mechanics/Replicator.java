@@ -1,7 +1,7 @@
-package ru.atom.gameserver.game;
+package ru.atom.gameserver.gsession.mechanics;
 
 import org.slf4j.LoggerFactory;
-import ru.atom.gameserver.util.Replica;
+import ru.atom.gameserver.gsession.mechanics.util.Replica;
 
 public class Replicator {
 
