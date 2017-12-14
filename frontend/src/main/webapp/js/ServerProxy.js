@@ -3,9 +3,10 @@ ServerProxy = Class.extend({
     matchMakerUrl: "http://localhost:8080/matchmaker/join",
     matchMakerSignUpUrl: "http://localhost:8080/matchmaker/signup",
     matchMakerSignOutUrl: "http://localhost:8080/matchmaker/signout",
-	gameId: "1234",
-	currentState: "offline",
-	
+    matchMakerTopUrl: "http://localhost:8080/matchmaker/top",
+    gameId: "1234",
+    currentState: "offline",
+
     socket: null,
 
     handler: {},
@@ -32,57 +33,57 @@ ServerProxy = Class.extend({
         });
     },
 
-	registryFromMatchMaker: function (login, password) {
-		var that = this;
-		var msg = "";
-		var succ = false;
-		$.ajax({
+    registryFromMatchMaker: function (login, password) {
+        var that = this;
+        var msg = "";
+        var succ = false;
+        $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: "login=" + login + "&password=" + password,
             dataType: 'text',
-            success: function(data){
-				msg = data;
-				succ = true;
+            success: function (data) {
+                msg = data;
+                succ = true;
                 console.log("Matchmaker registry");
             },
-            error: function(jqXHR, textStatus, errorThrown){
-				msg = jqXHR.responseText;
+            error: function (jqXHR, textStatus, errorThrown) {
+                msg = jqXHR.responseText;
                 console.log(jqXHR.responseText);
             },
             processData: false,
             type: 'POST',
             url: that.matchMakerSignUpUrl,
-			async: false
+            async: false
         });
-		return [succ, msg];
-	},
-	
+        return [succ, msg];
+    },
+
     getSessionIdFromMatchMaker: function (login, password) {
         var that = this;
-		var msg = "";
-		var succ = false;
+        var msg = "";
+        var succ = false;
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: "login=" + login + "&password=" + password,
             dataType: 'text',
-            success: function(data){
-                that.gameId=data;
-				succ = true;
+            success: function (data) {
+                that.gameId = data;
+                succ = true;
                 console.log("Matchmaker returned gameId=" + data);
                 that.connectToGameServer(that.gameId, login);
             },
-            error: function(jqXHR, textStatus, errorThrown){
+            error: function (jqXHR, textStatus, errorThrown) {
                 msg = jqXHR.responseText;
-				console.log(jqXHR.responseText);
+                console.log(jqXHR.responseText);
                 console.log(errorThrown);
             },
             processData: false,
             type: 'POST',
             url: that.matchMakerUrl
         });
-		return [succ, msg];
+        return [succ, msg];
     },
-	
+
     connectToGameServer: function (gameId, login) {
         var self = this;
         this.socket = new WebSocket("ws://" + this.gameServerUrl + "/game/connect?gameId=" + gameId + "&name=" + login);
@@ -119,18 +120,43 @@ ServerProxy = Class.extend({
             contentType: 'application/x-www-form-urlencoded',
             data: "login=" + login + "&password=" + password,
             dataType: 'text',
-            success: function(data) {
+            success: function (data) {
                 console.log("Matchmaker logout");
             },
-            error: function(jqXHR, textStatus, errorThrown){
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
             },
-            processData: false,
             type: 'POST',
             url: that.matchMakerSignOutUrl,
             async: false
         });
+    },
+
+    TopPlayers: function () {
+        var that = this;
+        $.ajax({
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (response) {
+                console.log("Matchmaker get Top");
+                var players = response.split(", ");
+                for (var i = 0; i < players.length; i++) {
+                    var player = players[i].split("=");
+
+                    document.write('<tr><th>' + (i + 1) +
+                        '</th><td>' + player[0] +
+                        '</td><td>' + player[1] + '</td></tr>');
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            },
+            type: 'GET',
+            url: that.matchMakerTopUrl,
+            async: false
+        })
     }
+
 
 });
 

@@ -18,5 +18,6 @@ public interface PlayerDao extends CrudRepository<Player, Integer> {
 
     public Set<Player> findByLoginIn(Iterable<String> logins);
 
-}
+    public Set<Player> findTop10ByOrderByWinsDesc();
 
+}
