@@ -98,4 +98,14 @@ public class MatchmakerComponent {
         }
         return gameId;
     }
+
+    @RequestMapping(
+            path = "top",
+            method = RequestMethod.GET,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<String> top() {
+        logger.info("get top players");
+        logger.info(databaseService.getTop());
+        return ResponseEntity.ok().body(databaseService.getTop());
+    }
 }

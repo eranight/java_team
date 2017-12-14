@@ -15,6 +15,8 @@ import ru.atom.matchmaker.model.Player;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 
 /**
  * Created by Alexandr on 25.11.2017.
@@ -74,5 +76,12 @@ public class DatabaseService {
         game.setId(gameId).setPlayers(players).setStatus(gameStatusDao.findOne(2));
         gameDao.save(game);
         logger.info("insert new game with id=" + gameId);
+    }
+
+    @Transactional
+    public String getTop() {
+        Set<Player> players = playerDao.findTop10ByOrderByWinsDesc();
+        logger.info("get top players");
+        return players.stream().map(player -> player.getLogin() + "=" + player.getWins()).collect(Collectors.joining(", "));
     }
 }
