@@ -13,10 +13,11 @@ Messages = Class.extend({
     move: function (direction) {
         var template = {
             topic: "MOVE",
-            data: gInputEngine.possessed
+            data: {}
         };
 
         template.data.direction = direction.toUpperCase();
+        template.data.possess = gInputEngine.possessed;
         return JSON.stringify(template);
     },
 
