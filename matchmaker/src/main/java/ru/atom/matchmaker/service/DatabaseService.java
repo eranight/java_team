@@ -89,7 +89,7 @@ public class DatabaseService {
     @Transactional
     public String getOnline() {
         PlayerStatus playerStatus = new PlayerStatus();
-        playerStatus.setId(2);
+        playerStatus.setId(1);
         Set<Player> players = playerDao.findByStatusEquals(playerStatus);
         logger.info("get online players");
         return players.stream().map(player -> player.getLogin()).collect(Collectors.joining(", "));
