@@ -1,9 +1,10 @@
 ServerProxy = Class.extend({
     gameServerUrl: "localhost:8091",
-    matchMakerUrl: "http://localhost:8080/matchmaker/join",
+    matchMakerJoinUrl: "http://localhost:8080/matchmaker/join",
     matchMakerSignUpUrl: "http://localhost:8080/matchmaker/signup",
     matchMakerSignOutUrl: "http://localhost:8080/matchmaker/signout",
     matchMakerTopUrl: "http://localhost:8080/matchmaker/top",
+    matchMakerOnlineListUrl: "http://localhost:8080/matchmaker/onlinelist",
     gameId: "1234",
     currentState: "offline",
 
@@ -79,7 +80,7 @@ ServerProxy = Class.extend({
             },
             processData: false,
             type: 'POST',
-            url: that.matchMakerUrl
+            url: that.matchMakerJoinUrl
         });
         return [succ, msg];
     },
@@ -141,12 +142,10 @@ ServerProxy = Class.extend({
                 var players = response.split(", ");
                 for (var i = 0; i < players.length; i++) {
                     var player = players[i].split("=");
-
                     document.write('<tr><th>' + (i + 1) +
                         '</th><td>' + player[0] +
                         '</td><td>' + player[1] + '</td></tr>');
                 }
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -154,7 +153,27 @@ ServerProxy = Class.extend({
             type: 'GET',
             url: that.matchMakerTopUrl,
             async: false
-        })
+        });
+    },
+
+    OnlinePlayers: function () {
+        var that = this;
+        $.ajax({
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (response) {
+                console.log("Matchmaker get Online players");
+                var players = response.split(", ");
+                for (var i = 0; i < players.length; i++) {
+                    document.write('<tr><th>' + (i + 1) + '</th><td>' + players[i] + '</td></tr>');
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            },
+            type: 'GET',
+            url: that.matchMakerOnlineListUrl,
+            async: false
+        });
     }
 
 

@@ -141,15 +141,25 @@ h1 strong {
  }
 
 
- .color_block {
+ .toplist {
      position: fixed;
      right: 10px;
-     top: 10%;
+     top: 10px;
      padding: 10px;
-
      border: 3px #95b3d7 solid;
      background: #ffffff;
+ }
 
+ .isonline {
+     position: fixed;
+     left: 10px;
+     top: 10px;
+     bottom: 10px;
+     padding: 10px;
+     border: 3px #95b3d7 solid;
+     background: #ffffff;
+     overflow-y: auto;
+     -webkit-overflow-scrolling:touch;
  }
 
 
