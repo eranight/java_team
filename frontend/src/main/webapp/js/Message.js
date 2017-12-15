@@ -13,7 +13,7 @@ Messages = Class.extend({
     move: function (direction) {
         var template = {
             topic: "MOVE",
-            data: {}
+            data: gInputEngine.possessed
         };
 
         template.data.direction = direction.toUpperCase();
@@ -23,7 +23,7 @@ Messages = Class.extend({
     plantBomb: function () {
         var template = {
             topic: "PLANT_BOMB",
-            data: {}
+            data: gInputEngine.possessed
         };
 
         return JSON.stringify(template);
