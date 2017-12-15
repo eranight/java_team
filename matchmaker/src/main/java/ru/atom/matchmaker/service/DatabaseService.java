@@ -11,6 +11,7 @@ import ru.atom.matchmaker.dao.PlayerDao;
 import ru.atom.matchmaker.dao.PlayerStatusDao;
 import ru.atom.matchmaker.model.Game;
 import ru.atom.matchmaker.model.Player;
+import ru.atom.matchmaker.model.PlayerStatus;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
@@ -83,5 +84,14 @@ public class DatabaseService {
         Set<Player> players = playerDao.findTop10ByOrderByWinsDesc();
         logger.info("get top players");
         return players.stream().map(player -> player.getLogin() + "=" + player.getWins()).collect(Collectors.joining(", "));
+    }
+
+    @Transactional
+    public String getOnline() {
+        PlayerStatus playerStatus = new PlayerStatus();
+        playerStatus.setId(1);
+        Set<Player> players = playerDao.findByStatusEquals(playerStatus);
+        logger.info("get online players");
+        return players.stream().map(player -> player.getLogin()).collect(Collectors.joining(", "));
     }
 }
