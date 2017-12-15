@@ -87,9 +87,9 @@
 		</form>
 	</div>
 
-    <div class="color_block">
+    <div class="toplist">
         <table class="t1">
-            <caption>Top 10 players</caption>
+            <caption>Top 10 of players</caption>
             <thead>
             <tr><th>Rank</th><th>Nick</th><th>Count Wins</th><tr>
             </thead>
@@ -98,5 +98,18 @@
             </tbody>
         </table>
     </div>
+
+    <div class="isonline">
+        <table class="t1">
+            <caption>Online players</caption>
+            <thead>
+            <tr><th>Rank</th><th>Nick</th><tr>
+            </thead>
+            <tbody>
+            <script> serverProxy.OnlinePlayers() </script>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 </html>

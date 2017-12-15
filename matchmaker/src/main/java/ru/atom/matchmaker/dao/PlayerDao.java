@@ -3,6 +3,7 @@ package ru.atom.matchmaker.dao;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.atom.matchmaker.model.Player;
+import ru.atom.matchmaker.model.PlayerStatus;
 
 import java.util.Set;
 
@@ -19,5 +20,7 @@ public interface PlayerDao extends CrudRepository<Player, Integer> {
     public Set<Player> findByLoginIn(Iterable<String> logins);
 
     public Set<Player> findTop10ByOrderByWinsDesc();
+
+    public Set<Player> findByStatusEquals(PlayerStatus playerStatus);
 
 }
