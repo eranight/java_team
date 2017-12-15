@@ -47,7 +47,7 @@ public class DatabaseService {
         Player player = new Player();
         player.setLogin(login)
                 .setPassword(password)
-                .setStatus(playerStatusDao.findOne(1))
+                .setStatus(playerStatusDao.findOne(2))
                 .setWins(0);
         playerDao.save(player);
         logger.info("sign up end");
@@ -58,7 +58,7 @@ public class DatabaseService {
     public Player login(@NotNull String login, @NotNull String password) {
         Player player = playerDao.getByLoginAndPassword(login, password);
         if (player != null) {
-            player.setStatus(playerStatusDao.findOne(2));
+            player.setStatus(playerStatusDao.findOne(1));
             playerDao.save(player);
         }
         return player;
@@ -66,7 +66,7 @@ public class DatabaseService {
 
     @Transactional
     public void logout(@NotNull Player player) {
-        player.setStatus(playerStatusDao.findOne(1));
+        player.setStatus(playerStatusDao.findOne(2));
         playerDao.save(player);
     }
 
