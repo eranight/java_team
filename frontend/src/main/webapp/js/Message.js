@@ -6,6 +6,7 @@ Messages = Class.extend({
         this.handler['Bomb'] = this.handleBomb;
         this.handler['Wood'] = this.handleTile;
         this.handler['Wall'] = this.handleTile;
+        this.handler['Grass'] = this.handleTile;
         this.handler['Fire'] = this.handleFire;
     },
 
@@ -84,7 +85,7 @@ Messages = Class.extend({
             return el.id === obj.id;
         });
 
-        var position = Utils.getEntityPosition(Utils.convertToBitmapPosition(obj.position));
+        var position = Utils.getEntityPosition(obj.position);
         if (tile) {
             tile.material = obj.type;
         } else {
