@@ -140,11 +140,13 @@ ServerProxy = Class.extend({
             success: function (response) {
                 console.log("Matchmaker get Top");
                 var players = response.split(", ");
-                for (var i = 0; i < players.length; i++) {
-                    var player = players[i].split("=");
-                    document.write('<tr><th>' + (i + 1) +
-                        '</th><td>' + player[0] +
-                        '</td><td>' + player[1] + '</td></tr>');
+                if (players != "") {
+                    for (var i = 0; i < players.length; i++) {
+                        var player = players[i].split("=");
+                        document.write('<tr><th>' + (i + 1) +
+                            '</th><td>' + player[0] +
+                            '</td><td>' + player[1] + '</td></tr>');
+                    }
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -163,8 +165,10 @@ ServerProxy = Class.extend({
             success: function (response) {
                 console.log("Matchmaker get Online players");
                 var players = response.split(", ");
-                for (var i = 0; i < players.length; i++) {
-                    document.write('<tr><th>' + (i + 1) + '</th><td>' + players[i] + '</td></tr>');
+                if (players != "") {
+                    for (var i = 0; i < players.length; i++) {
+                        document.write('<tr><th>' + (i + 1) + '</th><td>' + players[i] + '</td></tr>');
+                    }
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
