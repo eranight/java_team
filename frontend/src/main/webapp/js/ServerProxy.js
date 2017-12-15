@@ -15,7 +15,9 @@ ServerProxy = Class.extend({
     init: function () {
         this.handler['REPLICA'] = gMessages.handleReplica;
         this.handler['POSSESS'] = gMessages.handlePossess;
+    },
 
+    subscribeEvents: function () {
         var self = this;
         gInputEngine.subscribe('up', function () {
             self.socket.send(gMessages.move('up'))
