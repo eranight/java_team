@@ -1,5 +1,3 @@
 rootProject.name = 'java_team'
 include 'matchmaker'
-include 'gameservice'
 include 'frontend'
-include 'game_server'
