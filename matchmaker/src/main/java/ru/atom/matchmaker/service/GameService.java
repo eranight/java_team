@@ -55,6 +55,22 @@ public class GameService {
     }
 
     public void start(long gameId) {
-
+        logger.info("start game with id = " + gameId);
+        Request request = new Request.Builder()
+                .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"),
+                        "gameId=" + gameId))
+                .url(url + start)
+                .build();
+        logger.info(url + start);
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                logger.info("start game successful");
+            } else {
+                logger.info("smth wrong");
+            }
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
     }
 }
