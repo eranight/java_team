@@ -2,7 +2,23 @@ Authentication = Class.extend({
 	loggined: false,
 	login: "",
 	password: "",
-	
+
+	ShowLogin: function() {
+	    StartHide();
+	    PopInShow();
+	},
+
+    ShowRegistry : function() {
+        StartHide();
+        PopUpShow();
+    },
+
+    CancelEvent: function() {
+        PopInHide();
+        PopUpHide();
+        StartShow();
+    },
+
 	Login: function() {
 		var inner_login = $("#popinlog").val();
 		var inner_password = $("#popinpass").val();
@@ -108,8 +124,8 @@ function PopUpHide() {
     $("#popup").hide();
 }
 function StartShow() {
-    $("#start").show();
+    $("#popstart").show();
 }
 function StartHide() {
-    $("#start").hide();
+    $("#popstart").hide();
 }

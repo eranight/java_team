@@ -71,8 +71,8 @@
         <input id="popinlog" type="text" placeholder="Enter login" name="login" required>
         <label><b>Password</b></label>
         <input id="popinpass" type="password" placeholder="Enter password" name="password" required>
-        <button class="cancelbut redbut" type="button" onclick="document.getElementById('popin').style.display='none'">Cancel</button>
-        <button class="submitbut greenbut" type="button" onclick="return auth.Login()">Login</button>
+        <button class="cancelbut redbut" type="button" onclick="auth.CancelEvent()">Cancel</button>
+        <button class="submitbut greenbut" type="button" onclick="return auth.Login()">Sign In</button>
     </form>
 </div>
 <div id="popup" class="modal">
@@ -82,14 +82,14 @@
         <label><b>Password</b></label>
         <input id="popregpass1" type="password" placeholder="Enter password" name="password1" required>
         <input id="popregpass2" type="password" placeholder="Confirm password" name="password2" required>
-        <button class="cancelbut redbut" type="button" onclick="document.getElementById('popup').style.display='none'">Cancel</button>
-        <button class="submitbut greenbut" type="button" onclick="return auth.Registry()">Registry</button>
+        <button class="cancelbut redbut" type="button" onclick="auth.CancelEvent()">Cancel</button>
+        <button class="submitbut greenbut" type="button" onclick="return auth.Registry()">Sign Up</button>
     </form>
 </div>
-<div id="start" class="modal">
+<div id="popstart" class="modal">
     <form class="b-start">
-        <button id="bt_login" class="greenbut" onclick="document.getElementById('popin').style.display='block'">Login</button>
-        <button id="bt_registy" class="greenbut" onclick="document.getElementById('popup').style.display='block'">Registry</button>
+        <button class="greenbut" type="button" onclick="auth.ShowLogin()" style="float:left">Sign In</button>
+        <button class="greenbut" type="button"  onclick="auth.ShowRegistry()" style="float:right">Sign Up</button>
     </form>
 </div>
 
