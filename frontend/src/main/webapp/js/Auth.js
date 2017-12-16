@@ -38,6 +38,10 @@ Authentication = Class.extend({
 			alert("login field is empty");
 			return false;
 		}
+        if (/\s/g.test(inner_login)) {
+            alert("login cannot contain whitespace");
+            return false;
+        }
 		if (!password1) {
 			alert("enter password field is empty");
 			return false;
