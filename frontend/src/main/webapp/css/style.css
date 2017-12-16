@@ -140,6 +140,15 @@ button:disabled {
     box-shadow: 0px 0px 10px #000;
 }
 
+.b-start {
+    margin:auto;
+    width:310px;
+    height: 100px;
+    padding:10px;
+    background-color: #FFFFFF;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px #000;
+}
 
 .toplist {
     position: fixed;
@@ -195,4 +204,10 @@ table.t1 {
     font-weight: normal;
     font-size: 10px;
     color: #fff;
+}
+.bt_login {
+    left: 1px;
+}
+.bt_registy {
+    right: 1px;
 }
