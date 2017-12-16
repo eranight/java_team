@@ -8,6 +8,7 @@ Messages = Class.extend({
         this.handler['Wall'] = this.handleTile;
         this.handler['Grass'] = this.handleTile;
         this.handler['Fire'] = this.handleFire;
+        this.handler['Buff'] = this.handleBonus;
     },
 
     move: function (direction) {
@@ -88,6 +89,7 @@ Messages = Class.extend({
         });
 
         var position = Utils.getEntityPosition(obj.position);
+
         if (tile) {
             tile.material = obj.type;
         } else {
@@ -105,6 +107,21 @@ Messages = Class.extend({
         if (!fire) {
             fire = new Fire(obj.id, position);
             gGameEngine.fires.push(fire);
+        }
+    },
+
+    handleBonus: function (obj) {
+        var bonus = gGameEngine.bonuses.find(function (el) {
+            return el.id === obj.id;
+        });
+        var types = ['speed', 'power', 'capacity']
+        var position = Utils.getEntityPosition(obj.position);
+        var typePosition = types.findIndex(s => s == obj.buffType.toLowerCase())
+        if (bonus) {
+            bonus.type = types[typePosition];
+        } else {
+            bonus = new Bonus(obj.id, position, typePosition);
+            gGameEngine.bonuses.push(bonus);
         }
     }
 
