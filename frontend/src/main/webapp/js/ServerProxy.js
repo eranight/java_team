@@ -1,6 +1,7 @@
 ServerProxy = Class.extend({
     gameServerUrl: "localhost:8091",
     matchMakerJoinUrl: "http://localhost:8080/matchmaker/join",
+    matchMakerSignInUrl: "http://localhost:8080/matchmaker/signin",
     matchMakerSignUpUrl: "http://localhost:8080/matchmaker/signup",
     matchMakerSignOutUrl: "http://localhost:8080/matchmaker/signout",
     matchMakerTopUrl: "http://localhost:8080/matchmaker/top",
@@ -36,6 +37,31 @@ ServerProxy = Class.extend({
         });
     },
 
+    loginFromMatchMaker: function (login, password) {
+        var that = this;
+        var msg = "";
+        var succ = false;
+        $.ajax({
+            contentType: 'application/x-www-form-urlencoded',
+            data: "login=" + login + "&password=" + password,
+            dataType: 'text',
+            success: function (data) {
+                msg = data;
+                succ = true;
+                console.log("Matchmaker sign in");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                msg = jqXHR.responseText;
+                console.log(jqXHR.responseText);
+            },
+            processData: false,
+            type: 'POST',
+            url: that.matchMakerSignInUrl,
+            async: false
+        });
+        return [succ, msg];
+    },
+
     registryFromMatchMaker: function (login, password) {
         var that = this;
         var msg = "";
@@ -62,6 +88,8 @@ ServerProxy = Class.extend({
     },
 
     getSessionIdFromMatchMaker: function (login, password) {
+        var login = auth.login;
+        var password = auth.password;
         var that = this;
         var msg = "";
         var succ = false;

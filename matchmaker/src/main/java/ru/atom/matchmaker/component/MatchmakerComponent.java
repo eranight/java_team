@@ -36,6 +36,22 @@ public class MatchmakerComponent {
     private MatchBuilder currentBuilder;
 
     @RequestMapping(
+            path = "signin",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> signin(@RequestParam("login") String login,
+                                         @RequestParam("password") String password) {
+        logger.info("signin request has been received");
+        Player player = databaseService.login(login, password);
+        if (player != null) {
+            return ResponseEntity.ok().body("ok");
+        } else {
+            return ResponseEntity.badRequest().body("bad login or password");
+        }
+    }
+
+    @RequestMapping(
             path = "signup",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,

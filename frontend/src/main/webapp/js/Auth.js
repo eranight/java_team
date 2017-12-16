@@ -32,13 +32,10 @@ Authentication = Class.extend({
 		}
 		this.login = inner_login;
 		this.password = inner_password;
-		var result = serverProxy.getSessionIdFromMatchMaker(this.login, this.password);
+		var result = serverProxy.loginFromMatchMaker(this.login, this.password);
 		if (result[0]) {
 			PopInHide();
 			StartHide();
-			$("#bt_login").attr('disabled', 'disabled');
-            $("#bt_registy").attr('disabled', 'disabled');
-            $("#bt_logout").removeAttr('disabled');
 			this.loggined = true;
 			return true;
 		} else {
@@ -75,9 +72,6 @@ Authentication = Class.extend({
 				serverProxy.getSessionIdFromMatchMaker(this.login, this.password);
 				PopUpHide();
 				StartHide();
-				$("#bt_login").attr('disabled', 'disabled');
-                $("#bt_registy").attr('disabled', 'disabled');
-                $("#bt_logout").removeAttr('disabled');
 				this.loggined = true;
 				return true;
 			} else {
@@ -93,9 +87,6 @@ Authentication = Class.extend({
 	Logout: function() {
 	    serverProxy.logout(this.login, this.password);
 		this.loggined = false;
-		$("#bt_login").removeAttr('disabled');
-		$("#bt_registy").removeAttr('disabled');
-		$("#bt_logout").attr('disabled', 'disabled');
 	}
 });
 auth = new Authentication();
