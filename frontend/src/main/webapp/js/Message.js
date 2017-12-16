@@ -70,8 +70,9 @@ Messages = Class.extend({
         var bomb = gGameEngine.bombs.find(function (el) {
             return el.id === obj.id;
         });
-        var position = Utils.getEntityPosition(obj.position);
-
+        var position = {};
+        position.x = obj.position.x + 6;
+        position.y = -obj.position.y + 12 * 33 - 6;
         if (bomb) {
             bomb.bmp.x = position.x;
             bomb.bmp.y = position.y;
