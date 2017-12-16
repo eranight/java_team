@@ -17,13 +17,14 @@ Messages = Class.extend({
         };
 
         template.data.direction = direction.toUpperCase();
+        template.data.possess = gInputEngine.possessed;
         return JSON.stringify(template);
     },
 
     plantBomb: function () {
         var template = {
             topic: "PLANT_BOMB",
-            data: {}
+            data: gInputEngine.possessed
         };
 
         return JSON.stringify(template);
