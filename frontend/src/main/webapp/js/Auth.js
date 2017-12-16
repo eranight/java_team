@@ -19,6 +19,7 @@ Authentication = Class.extend({
 		var result = serverProxy.getSessionIdFromMatchMaker(this.login, this.password);
 		if (result[0]) {
 			PopInHide();
+            StartHide();
 			$("#bt_login").attr('disabled', 'disabled');
             $("#bt_registy").attr('disabled', 'disabled');
             $("#bt_logout").removeAttr('disabled');
@@ -57,6 +58,7 @@ Authentication = Class.extend({
 			if (result[0]) {
 				serverProxy.getSessionIdFromMatchMaker(this.login, this.password);
 				PopUpHide();
+                StartHide();
 				$("#bt_login").attr('disabled', 'disabled');
                 $("#bt_registy").attr('disabled', 'disabled');
                 $("#bt_logout").removeAttr('disabled');
@@ -83,6 +85,7 @@ Authentication = Class.extend({
 auth = new Authentication();
 
 $(document).ready(function() {
+    StartShow();
     //Скрыть PopIn при загрузке страницы
     PopInHide();
     //Скрыть PopUp при загрузке страницы
@@ -103,4 +106,10 @@ function PopUpShow() {
 //Функция скрытия PopUp
 function PopUpHide() {
     $("#popup").hide();
+}
+function StartShow() {
+    $("#start").show();
+}
+function StartHide() {
+    $("#start").hide();
 }
