@@ -9,6 +9,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 
 public class PlayerTest {
+
     Player player;
     PlayerStatus playerStatus;
 

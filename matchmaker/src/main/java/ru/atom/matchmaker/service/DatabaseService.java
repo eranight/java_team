@@ -5,14 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.atom.matchmaker.dao.PlayerDao;
 import ru.atom.matchmaker.dao.PlayerStatusDao;
 import ru.atom.matchmaker.model.Player;
 import ru.atom.matchmaker.model.PlayerStatus;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -80,5 +78,20 @@ public class DatabaseService {
         Set<Player> players = playerDao.findByStatusEquals(playerStatus);
         logger.info("get online players");
         return players.stream().map(player -> player.getLogin()).collect(Collectors.joining(", "));
+    }
+
+    @Transactional
+    public void incrementStatistic(String login) {
+        Player player = playerDao.getByLogin(login);
+        if (player != null) {
+            player.setWins(player.getWins() + 1);
+            playerDao.save(player);
+        }
+    }
+
+    @Transactional
+    public Player getPlayer(String login) {
+        Player player = playerDao.getByLogin(login);
+        return player;
     }
 }

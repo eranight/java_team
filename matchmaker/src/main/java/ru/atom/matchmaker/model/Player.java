@@ -78,4 +78,5 @@ public class Player {
         this.wins = wins;
         return this;
     }
+
 }
