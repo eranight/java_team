@@ -144,5 +144,4 @@ public class MatchmakerComponent {
         }
         return ResponseEntity.ok().body("ok");
     }
-
 }
