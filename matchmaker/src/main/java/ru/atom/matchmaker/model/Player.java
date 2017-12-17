@@ -34,9 +34,6 @@ public class Player {
     @Column(name = "wins", nullable = false)
     private int wins;
 
-    @ManyToMany(mappedBy = "players")
-    private Set<Game> games;
-
     public int getId() {
         return id;
     }
@@ -79,15 +76,6 @@ public class Player {
 
     public Player setWins(int wins) {
         this.wins = wins;
-        return this;
-    }
-
-    public Set<Game> getGames() {
-        return games;
-    }
-
-    public Player setGames(Set<Game> games) {
-        this.games = games;
         return this;
     }
 }

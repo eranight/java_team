@@ -1,6 +1,9 @@
 package ru.atom.matchmaker.dao;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.atom.matchmaker.model.Player;
 import ru.atom.matchmaker.model.PlayerStatus;
@@ -13,14 +16,19 @@ import java.util.Set;
 @Repository
 public interface PlayerDao extends CrudRepository<Player, Integer> {
 
-    public Player getByLogin(String login);
+    Player getByLogin(String login);
 
-    public Player getByLoginAndPassword(String login, String password);
+    Player getByLoginAndPassword(String login, String password);
 
-    public Set<Player> findByLoginIn(Iterable<String> logins);
+    Set<Player> findByLoginIn(Iterable<String> logins);
 
-    public Set<Player> findTop10ByOrderByWinsDesc();
+    Set<Player> findTop10ByOrderByWinsDesc();
 
-    public Set<Player> findByStatusEquals(PlayerStatus playerStatus);
+    Set<Player> findByStatusEquals(PlayerStatus playerStatus);
+
+    @Modifying
+    @Query("UPDATE Player p SET p.status = :nextStatus WHERE p.status = :prevStatus")
+    int setPlayerStatusWhere(@Param("nextStatus") PlayerStatus nextPlayerStatus,
+                             @Param("prevStatus") PlayerStatus prevPlayerStatus);
 
 }

@@ -5,15 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.atom.matchmaker.dao.GameDao;
-import ru.atom.matchmaker.dao.GameStatusDao;
+import org.springframework.transaction.annotation.Transactional;
 import ru.atom.matchmaker.dao.PlayerDao;
 import ru.atom.matchmaker.dao.PlayerStatusDao;
-import ru.atom.matchmaker.model.Game;
 import ru.atom.matchmaker.model.Player;
 import ru.atom.matchmaker.model.PlayerStatus;
 
-import javax.transaction.Transactional;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,10 +25,6 @@ import java.util.stream.Collectors;
 public class DatabaseService {
     private static final Logger logger = LoggerFactory.getLogger(DatabaseService.class);
 
-    @Autowired
-    private GameDao gameDao;
-    @Autowired
-    private GameStatusDao gameStatusDao;
     @Autowired
     private PlayerDao playerDao;
     @Autowired
@@ -71,19 +66,11 @@ public class DatabaseService {
     }
 
     @Transactional
-    public void insertNewGame(long gameId, Set<String> logins) {
-        Set<Player> players = playerDao.findByLoginIn(logins);
-        Game game = new Game();
-        game.setId(gameId).setPlayers(players).setStatus(gameStatusDao.findOne(2));
-        gameDao.save(game);
-        logger.info("insert new game with id=" + gameId);
-    }
-
-    @Transactional
     public String getTop() {
         Set<Player> players = playerDao.findTop10ByOrderByWinsDesc();
         logger.info("get top players");
-        return players.stream().map(player -> player.getLogin() + "=" + player.getWins()).collect(Collectors.joining(", "));
+        return players.stream().map(player -> player.getLogin() + "=" + player.getWins())
+                .collect(Collectors.joining(", "));
     }
 
     @Transactional

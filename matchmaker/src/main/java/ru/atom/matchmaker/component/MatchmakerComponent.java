@@ -108,7 +108,6 @@ public class MatchmakerComponent {
         currentBuilder.putLogin(login);
         gameService.connect(login, currentBuilder.getGameId());
         if (currentBuilder.isReady()) {
-            databaseService.insertNewGame(currentBuilder.getGameId(), currentBuilder.getLogins());
             gameService.start(currentBuilder.getGameId());
             currentBuilder = null;
         }
@@ -121,6 +120,7 @@ public class MatchmakerComponent {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<String> top() {
         logger.info("get top players");
+        databaseService.setPlayersToOffline();
         return ResponseEntity.ok().body(databaseService.getTop());
     }
 

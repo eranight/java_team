@@ -11,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class PlayerTest {
     Player player;
     PlayerStatus playerStatus;
-    Set<Game> games;
 
     @Before
     public void init() {
@@ -22,8 +21,6 @@ public class PlayerTest {
         player.setWins(5);
         playerStatus = new PlayerStatus();
         player.setStatus(playerStatus);
-        games = new HashSet<>();
-        player.setGames(games);
     }
 
     @Test
@@ -49,11 +46,6 @@ public class PlayerTest {
     @Test
     public void getWins() throws Exception {
         assertEquals(player.getWins(), 5);
-    }
-
-    @Test
-    public void getGames() throws Exception {
-        assertEquals(player.getGames(), games);
     }
 
 }
