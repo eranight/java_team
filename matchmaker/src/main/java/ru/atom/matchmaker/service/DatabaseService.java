@@ -81,4 +81,18 @@ public class DatabaseService {
         logger.info("get online players");
         return players.stream().map(player -> player.getLogin()).collect(Collectors.joining(", "));
     }
+
+    @Transactional
+    public void incrementStatistic(String login) {
+        logger.info("in incrementStatistic");
+        Player player = playerDao.getByLogin(login);
+        player.setWins(player.getWins() + 1);
+        playerDao.save(player);
+    }
+
+    @Transactional
+    public Player getPlayer(String login) {
+        Player player = playerDao.getByLogin(login);
+        return player;
+    }
 }
