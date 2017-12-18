@@ -2,7 +2,7 @@ dependencies {
     compile rootProject.libraries.spring_boot
     compile rootProject.libraries.spring_boot_websocket
 
-    compile rootProject.libraries.log4j
+    compile rootProject.libraries.slf4j
     compile rootProject.libraries.postgres
     compile rootProject.libraries.jetbrainsAnnotations
     compile rootProject.libraries.hibernate
@@ -14,6 +14,7 @@ dependencies {
 
 configurations {
     compile.exclude group:'ch.qos.logback'
+    compile.exclude module:'log4j-over-slf4j'
 }
 
 jar {
