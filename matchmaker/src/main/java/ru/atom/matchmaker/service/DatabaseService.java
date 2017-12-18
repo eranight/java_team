@@ -10,6 +10,7 @@ import ru.atom.matchmaker.dao.PlayerStatusDao;
 import ru.atom.matchmaker.model.Player;
 import ru.atom.matchmaker.model.PlayerStatus;
 
+import javax.annotation.PreDestroy;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -94,4 +95,15 @@ public class DatabaseService {
         Player player = playerDao.getByLogin(login);
         return player;
     }
+
+    @PreDestroy
+    @Transactional
+    private void setOffline() {
+        Set<Player> players = playerDao.findByStatusEquals(playerStatusDao.findOne(1));
+        PlayerStatus playerStatus = playerStatusDao.findOne(2);
+        players.forEach(player -> player.setStatus(playerStatus));
+        playerDao.save(players);
+    }
+
+
 }
