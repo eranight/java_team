@@ -19,8 +19,7 @@ Tile = Entity.extend({
 
     material: '',
 
-    init: function(id, material, position) {
-        this.id = id;
+    init: function(material, position) {
         this.material = material;
         this.position = position;
         var img;
@@ -28,8 +27,6 @@ Tile = Entity.extend({
             img = gGameEngine.tilesImgs.grass;
         } else if (material === 'Wall') {
             img = gGameEngine.tilesImgs.wall;
-        } else if (material === 'Wood') {
-            img = gGameEngine.tilesImgs.wood;
         }
         this.bmp = new createjs.Bitmap(img);
 

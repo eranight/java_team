@@ -4,9 +4,7 @@ Messages = Class.extend({
     init: function () {
         this.handler['Pawn'] = this.handlePawn;
         this.handler['Bomb'] = this.handleBomb;
-        this.handler['Wood'] = this.handleTile;
-        this.handler['Wall'] = this.handleTile;
-        this.handler['Grass'] = this.handleTile;
+        this.handler['Wood'] = this.handleBox;
         this.handler['Fire'] = this.handleFire;
         this.handler['Buff'] = this.handleBonus;
     },
@@ -83,18 +81,18 @@ Messages = Class.extend({
         }
     },
 
-    handleTile: function (obj) {
-        var tile = gGameEngine.tiles.find(function (el) {
+    handleBox: function (obj) {
+        var box = gGameEngine.boxes.find(function (el) {
             return el.id === obj.id;
         });
 
         var position = Utils.getEntityPosition(obj.position);
 
-        if (tile) {
-            tile.material = obj.type;
+        if (box) {
+            box.bmp.x = position.x;
+            box.bmp.y = position.y;
         } else {
-            tile = new Tile(obj.id, obj.type, position);
-            gGameEngine.tiles.push(tile);
+            gGameEngine.boxes.push(new Box(obj.id, position));
         }
     },
 

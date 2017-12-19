@@ -10,6 +10,7 @@ GameEngine = Class.extend({
     stage: null,
     menu: null,
     players: [],
+    boxes: [],
     tiles: [],
     bombs: [],
     bonuses: [],
@@ -84,8 +85,10 @@ GameEngine = Class.extend({
         }
 
         this.bombs = [];
-        this.tiles = [];
+        this.boxes = [];
         this.bonuses = [];
+
+        this.initmap();
 
         this.serverProxy = new ServerProxy();
 
@@ -161,6 +164,33 @@ GameEngine = Class.extend({
     //     }
     // },
 
+    initmap: function() {
+        var COLS = 17;
+        var ROWS = 13;
+        for (var i = 0; i < COLS; i++) {
+            var position = Utils.getEntityPosition({ x: i * 32, y: 0 });
+            this.tiles.push(new Tile('Wall', position));
+            position = Utils.getEntityPosition({ x: i * 32, y: (ROWS - 1) * 32 });
+            this.tiles.push(new Tile('Wall', position));
+        }
+        for (var i = 1; i < ROWS; i++) {
+            var position = Utils.getEntityPosition({ x: 0, y: i * 32 });
+            this.tiles.push(new Tile('Wall', position));
+            position = Utils.getEntityPosition({ x: (COLS - 1) * 32, y: i * 32 });
+            this.tiles.push(new Tile('Wall', position));
+        }
+        for (var i = 1; i < ROWS - 1; i++) {
+            for (var j = 1; j < COLS - 1; j++) {
+                var position = Utils.getEntityPosition({ x: j * 32, y: i * 32 });
+                if (i % 2 == 0 && j % 2 == 0) {
+                    this.tiles.push(new Tile('Wall', position));
+                } else {
+                    this.tiles.push(new Tile('Grass', position));
+                }
+            }
+        }
+    },
+
     restart: function() {
         // gInputEngine.removeAllListeners();
         gGameEngine.stage.removeAllChildren();
@@ -187,7 +217,7 @@ GameEngine = Class.extend({
     },
 
     gc: function(survivors) {
-        [this.players, this.tiles, this.bombs, this.bonuses].forEach(function (it) {
+        [this.players, this.boxes, this.bombs, this.bonuses].forEach(function (it) {
             var i = it.length;
             while (i--) {
                 if (!survivors.has(it[i].id)) {
