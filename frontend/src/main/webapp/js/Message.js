@@ -4,7 +4,7 @@ Messages = Class.extend({
     init: function () {
         this.handler['Pawn'] = this.handlePawn;
         this.handler['Bomb'] = this.handleBomb;
-        this.handler['Wood'] = this.handleBox;
+        this.handler['Box'] = this.handleBox;
         this.handler['Fire'] = this.handleFire;
         this.handler['Buff'] = this.handleBonus;
     },
