@@ -13,6 +13,7 @@ Player = Entity.extend({
     bmp: null,
 
     alive: true,
+    faded: false,
 
     bombs: [],
 
@@ -30,8 +31,6 @@ Player = Entity.extend({
     escapeBomb: null,
 
     deadTimer: 0,
-
-
 
     init: function(id, position) {
         this.id = id;
@@ -63,6 +62,10 @@ Player = Entity.extend({
 
     update: function() {
         if (!this.alive) {
+            if (this.faded) {
+                gGameEngine.players.splice(gGameEngine.players.indexOf(this), 1);
+                gGameEngine.stage.removeChild(this.bmp);
+            }
             return;
         }
 
@@ -102,6 +105,7 @@ Player = Entity.extend({
     fade: function() {
         var timer = 0;
         var bmp = this.bmp;
+        var that = this;
         var fade = setInterval(function() {
             timer++;
 
@@ -110,6 +114,7 @@ Player = Entity.extend({
             }
             if (bmp.alpha <= 0) {
                 clearInterval(fade);
+                that.faded = true;
             }
 
         }, 30);

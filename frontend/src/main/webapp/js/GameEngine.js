@@ -149,20 +149,16 @@ GameEngine = Class.extend({
         gGameEngine.stage.update();
     },
 
-    // gameOver: function(status) {
-    //     if (gGameEngine.menu.visible) { return; }
-    //
-    //     if (status == 'win') {
-    //         var winText = "You won!";
-    //         if (gGameEngine.playersCount > 1) {
-    //             var winner = gGameEngine.getWinner();
-    //             winText = winner == 0 ? "Player 1 won!" : "Player 2 won!";
-    //         }
-    //         this.menu.show([{text: winText, color: '#669900'}, {text: ' ;D', color: '#99CC00'}]);
-    //     } else {
-    //         this.menu.show([{text: 'Game Over', color: '#CC0000'}, {text: ' :(', color: '#FF4444'}]);
-    //     }
-    // },
+    gameOver: function(status) {
+        if (gGameEngine.menu.visible) { return; }
+
+        if (status == 'win') {
+            var winText = "You won!";
+            this.menu.show([{text: winText, color: '#669900'}, {text: ' ;D', color: '#99CC00'}]);
+        } else {
+            this.menu.show([{text: 'Game Over', color: '#CC0000'}, {text: ' :(', color: '#FF4444'}]);
+        }
+    },
 
     initmap: function() {
         var COLS = 17;
@@ -217,7 +213,7 @@ GameEngine = Class.extend({
     },
 
     gc: function(survivors) {
-        [this.players, this.boxes, this.bombs, this.bonuses].forEach(function (it) {
+        [this.boxes, this.bombs, this.bonuses].forEach(function (it) {
             var i = it.length;
             while (i--) {
                 if (!survivors.has(it[i].id)) {

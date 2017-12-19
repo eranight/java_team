@@ -31,7 +31,8 @@ Messages = Class.extend({
 
 
     handleReplica: function (msg) {
-        var gameObjects = JSON.parse(msg.data).objects;
+        var data = JSON.parse(msg.data);
+        var gameObjects = data.objects;
         var survivors = new Set();
 
         for (var i = 0; i < gameObjects.length; i++) {
@@ -43,10 +44,17 @@ Messages = Class.extend({
             gMessages.handler[obj.type](obj);
         }
         gGameEngine.gc(survivors);
+
+        if (data.gameOver == true) {
+            gGameEngine.gameOver('win'); //it's normal, cause if player lose it determines in handlePawn
+        }
     },
 
     handlePossess: function (msg) {
-        gInputEngine.possessed = parseInt(msg.data);
+        console.log(msg);
+        var data = JSON.parse(msg.data);
+        gInputEngine.possessed = parseInt(data.possess);
+        gGameEngine.playersCount = parseInt(data.playersCount);
     },
 
     handlePawn: function(obj) {
@@ -58,6 +66,12 @@ Messages = Class.extend({
         if (player) {
             player.bmp.x = position.x;
             player.bmp.y = position.y;
+            if (obj.alive == false) {
+                player.die();
+                if (obj.id == gInputEngine.possessed) {
+                    gGameEngine.gameOver('lose');
+                }
+            }
         } else {
             console.log(new Date().getTime() + " handel new player " + obj.id);
             player = new Player(obj.id, position);
@@ -72,10 +86,7 @@ Messages = Class.extend({
         var position = {};
         position.x = obj.position.x + 6;
         position.y = -obj.position.y + 12 * 33 - 6;
-        if (bomb) {
-            bomb.bmp.x = position.x;
-            bomb.bmp.y = position.y;
-        } else {
+        if (!bomb) {
             bomb = new Bomb(obj.id, position);
             gGameEngine.bombs.push(bomb);
         }
@@ -88,10 +99,7 @@ Messages = Class.extend({
 
         var position = Utils.getEntityPosition(obj.position);
 
-        if (box) {
-            box.bmp.x = position.x;
-            box.bmp.y = position.y;
-        } else {
+        if (!box) {
             gGameEngine.boxes.push(new Box(obj.id, position));
         }
     },
