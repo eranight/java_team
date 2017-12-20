@@ -52,8 +52,12 @@ public class DatabaseService {
     public Player login(@NotNull String login, @NotNull String password) {
         Player player = playerDao.getByLoginAndPassword(login, password);
         if (player != null) {
-            player.setStatus(playerStatusDao.findOne(1));
-            playerDao.save(player);
+            if (player.getStatus().getId() == 2) {
+                player.setStatus(playerStatusDao.findOne(1));
+                playerDao.save(player);
+            } else {
+                return null;
+            }
         }
         return player;
     }
