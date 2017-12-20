@@ -74,8 +74,8 @@ public class MatchmakerComponent {
             produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> join(@RequestParam("login") String login, @RequestParam("password") String password) {
         logger.info("join request has been received");
-        Player player = databaseService.login(login, password);
-        if (player != null) {
+        Player player = databaseService.getPlayer(login);
+        if (player != null && player.getPassword().equals(password)) {
             long gameId = processJoinRequest(login);
             return ResponseEntity.ok().body(String.valueOf(gameId));
         } else {

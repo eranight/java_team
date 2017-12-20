@@ -54,13 +54,16 @@ Messages = Class.extend({
 
     handleEndMatch: function (msg) {
         var data = JSON.parse(msg.data);
-        if (data.isWinner == true) {
+        if (data.hasWinner === true) {
+            console.log('has winner');
             if (gInputEngine.possessed === data.possess) {
                 gGameEngine.gameOver('win');
+                console.log('win');
                 return;
             }
         }
         gGameEngine.gameOver('lose');
+        console.log('lose');
     },
 
     handlePawn: function(obj) {
@@ -72,9 +75,10 @@ Messages = Class.extend({
         if (player) {
             player.bmp.x = position.x;
             player.bmp.y = position.y;
-            if (obj.alive == false) {
+            if (obj.alive === false) {
+                console.log('alive == false');
                 player.die();
-                if (obj.id == gInputEngine.possessed) {
+                if (obj.id === gInputEngine.possessed) {
                     gGameEngine.gameOver('lose');
                 }
             }
