@@ -44,17 +44,23 @@ Messages = Class.extend({
             gMessages.handler[obj.type](obj);
         }
         gGameEngine.gc(survivors);
-
-        if (data.gameOver == true) {
-            gGameEngine.gameOver('win'); //it's normal, cause if player lose it determines in handlePawn
-        }
     },
 
     handlePossess: function (msg) {
-        console.log(msg);
         var data = JSON.parse(msg.data);
         gInputEngine.possessed = parseInt(data.possess);
         gGameEngine.playersCount = parseInt(data.playersCount);
+    },
+
+    handleEndMatch: function (msg) {
+        var data = JSON.parse(msg.data);
+        if (data.isWinner == true) {
+            if (gInputEngine.possessed === data.possess) {
+                gGameEngine.gameOver('win');
+                return;
+            }
+        }
+        gGameEngine.gameOver('lose');
     },
 
     handlePawn: function(obj) {

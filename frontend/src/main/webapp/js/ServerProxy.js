@@ -16,6 +16,7 @@ ServerProxy = Class.extend({
     init: function () {
         this.handler['REPLICA'] = gMessages.handleReplica;
         this.handler['POSSESS'] = gMessages.handlePossess;
+        this.handler['END_MATCH'] = gMessages.handleEndMatch;
     },
 
     subscribeEvents: function () {
